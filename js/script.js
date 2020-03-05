@@ -16,7 +16,8 @@ FSJS project 2 - List Filter and Pagination
    will only be used inside of a function, then it can be locally 
    scoped to that function.
 ***/
-
+const listItems = document.getElementsByClassName('student-item cf');
+const itemsPerPage = 10;
 
 
 
@@ -34,8 +35,24 @@ FSJS project 2 - List Filter and Pagination
        that will be passed into the parens later when you call or 
        "invoke" the function 
 ***/
+function showPage (list, page) {
+   let startIndex = (page * itemsPerPage) - itemsPerPage;
+   let endIndex = page * itemsPerPage;
+   for(let i = 0; i < list.length; i++) {
+      let li = list[i];
+      if(i >= startIndex && i < endIndex){
+         
+         li.style.display = '';
 
+      } else {
+         li.style.display = 'none';
+      }
 
+   }
+
+}
+
+showPage(listItems, 1);
 
 
 /*** 
@@ -43,7 +60,38 @@ FSJS project 2 - List Filter and Pagination
    functionality to the pagination buttons.
 ***/
 
+function appendPageLinks (list) {
+   let mainDiv = document.querySelector('.page');
+   let linkDiv = document.createElement('div');
+   let ul = document.createElement('ul');
+   linkDiv.className = 'pagination';
+   let pageLimiter = list.length / itemsPerPage;
 
+   for(let i = 0; i < pageLimiter; i++){
+      let pageLink = document.createElement('li');
+      let aTag = document.createElement('a');
+      aTag.href = '#';
+      aTag.textContent = i + 1;
+     
+      pageLink.appendChild(aTag);
+      ul.appendChild(pageLink);
+   }
+   linkDiv.appendChild(ul);
+   mainDiv.appendChild(linkDiv);
+
+   linkDiv.addEventListener('click', (e) => {
+      if(e.target.tagName === 'A'){
+         pageNumber = parseInt(e.target.textContent); 
+         showPage(listItems, pageNumber);
+      }
+
+   });
+
+}
+
+appendPageLinks(listItems);
+// Links are being displayed. Next add a event listener to the links to display the new page with the link number and the 
+// being passed as parameters
 
 
 
