@@ -2,7 +2,7 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
+
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
@@ -36,13 +36,13 @@ const itemsPerPage = 10;
        that will be passed into the parens later when you call or 
        "invoke" the function 
 ***/
-function showPage (list, page) {
+function showPage(list, page) {
    let startIndex = (page * itemsPerPage) - itemsPerPage;
    let endIndex = page * itemsPerPage;
-   for(let i = 0; i < list.length; i++) {
+   for (let i = 0; i < list.length; i++) {
       let li = list[i];
-      if(i >= startIndex && i < endIndex){
-         
+      if (i >= startIndex && i < endIndex) {
+
          li.style.display = '';
 
       } else {
@@ -61,19 +61,19 @@ showPage(listItems, 1);
    functionality to the pagination buttons.
 ***/
 
-function appendPageLinks (list) {
+function appendPageLinks(list) {
    let mainDiv = document.querySelector('.page');
    let linkDiv = document.createElement('div');
    let ul = document.createElement('ul');
    linkDiv.className = 'pagination';
    let pageLimiter = list.length / itemsPerPage;
 
-   for(let i = 0; i < pageLimiter; i++){
+   for (let i = 0; i < pageLimiter; i++) {
       let pageLink = document.createElement('li');
       let aTag = document.createElement('a');
       aTag.href = '#';
       aTag.textContent = i + 1;
-     
+
       pageLink.appendChild(aTag);
       ul.appendChild(pageLink);
    }
@@ -81,8 +81,8 @@ function appendPageLinks (list) {
    mainDiv.appendChild(linkDiv);
 
    linkDiv.addEventListener('click', (e) => {
-      if(e.target.tagName === 'A'){
-         pageNumber = parseInt(e.target.textContent); 
+      if (e.target.tagName === 'A') {
+         pageNumber = parseInt(e.target.textContent);
          showPage(listItems, pageNumber);
       }
 
@@ -94,7 +94,7 @@ appendPageLinks(listItems);
 // Links are being displayed. Next add a event listener to the links to display the new page with the link number and the 
 // being passed as parameters
 
-function createSearchBar (){
+function createSearchBar() {
    let headerDiv = document.querySelector('.page-header');
    let searchDiv = document.createElement('div');
    let searchBar = document.createElement('input');
@@ -108,46 +108,48 @@ function createSearchBar (){
    searchDiv.appendChild(searchBar);
    searchDiv.appendChild(searchButton);
 
-   searchBar.addEventListener('keyup', () =>{
-      performSearch(event.target.value);
-     // console.log(event.target.value);
+   // searchBar.addEventListener('keyup', () =>{
+   //    performSearch(event.target.value);
+   //   // console.log(event.target.value);
 
-      //1. add functionality to the search bar
-      //2. how to dynamically display?
-      // create a new array with found items and pass to showpage()?
-   })
+   //    //1. add functionality to the search bar
+   //    //2. how to dynamically display?
+   //    // create a new array with found items and pass to showpage()?
+   // })
 
-   searchButton.addEventListener('click', () =>{
+   searchButton.addEventListener('click', () => {
       performSearch(searchBar.value);
       // console.log(searchBar.value);
    })
 
-   
+
 }
-function performSearch (searchInput) {
+function performSearch(searchInput) {
    let liArray = [];
    let names = document.querySelectorAll('h3');
-   for(let i = 0; i < names.length; i++){
-     
-      // let name = names[i].textContent;
+   for (let i = 0; i < names.length; i++) {
+
+      let name = names[i].textContent;
       //console.log(name);
-      if(searchInput.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.toLowerCase())){
-        //liArray.push(names[i].parentElement.parentElement);
-        
-   
+      if (searchInput.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.toLowerCase())) {
+         liArray.push(names[i].parentElement.parentElement);
+
+
+      }
    }
-   
-   showPage(liArray, 1);
-   // for(let x = 0; x < name.length; x++){
-   // name[x].display = 'none';
-     
-   //   if(input.textContent.length !== 0 && name[x].textContent.toLowerCase().includes(input.textContent.toLowerCase())){
-   //     name[x].display = '';
-   //      }
-   
-   // }
- }
+   console.log(liArray);
+}
+
+//showPage(liArray, 1);
+// for(let x = 0; x < name.length; x++){
+// name[x].display = 'none';
+
+//   if(input.textContent.length !== 0 && name[x].textContent.toLowerCase().includes(input.textContent.toLowerCase())){
+//     name[x].display = '';
+//      }
+
+// }
+//}
 
 
 createSearchBar();
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
