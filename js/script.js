@@ -108,14 +108,14 @@ function createSearchBar() {
    searchDiv.appendChild(searchBar);
    searchDiv.appendChild(searchButton);
 
-   // searchBar.addEventListener('keyup', () =>{
-   //    performSearch(event.target.value);
-   //   // console.log(event.target.value);
+   searchBar.addEventListener('keyup', () =>{
+      performSearch(event.target.value);
+     //console.log(event.target.value);
 
-   //    //1. add functionality to the search bar
-   //    //2. how to dynamically display?
-   //    // create a new array with found items and pass to showpage()?
-   // })
+      //1. add functionality to the search bar
+      //2. how to dynamically display?
+      // create a new array with found items and pass to showpage()?
+   })
 
    searchButton.addEventListener('click', () => {
       performSearch(searchBar.value);
@@ -129,27 +129,22 @@ function performSearch(searchInput) {
    let names = document.querySelectorAll('h3');
    for (let i = 0; i < names.length; i++) {
 
-      let name = names[i].textContent;
+      //let name = names[i].textContent;
       //console.log(name);
       if (searchInput.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.toLowerCase())) {
          liArray.push(names[i].parentElement.parentElement);
+         names[i].parentElement.parentElement.style.display = '';
+         
+       } else {
+          names[i].parentElement.parentElement.style.display = 'none';
+       }
 
-
-      }
    }
-   console.log(liArray);
+   appendPageLinks(liArray);
+   
 }
 
-//showPage(liArray, 1);
-// for(let x = 0; x < name.length; x++){
-// name[x].display = 'none';
 
-//   if(input.textContent.length !== 0 && name[x].textContent.toLowerCase().includes(input.textContent.toLowerCase())){
-//     name[x].display = '';
-//      }
-
-// }
-//}
 
 
 createSearchBar();
