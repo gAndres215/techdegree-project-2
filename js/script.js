@@ -40,13 +40,13 @@ function showPage(list, page) {
    let startIndex = (page * itemsPerPage) - itemsPerPage;
    let endIndex = page * itemsPerPage;
    for (let i = 0; i < list.length; i++) {
-      let li = list[i];
+      // let li = list[i];
       if (i >= startIndex && i < endIndex) {
 
-         li.style.display = '';
+         list[i].style.display = '';
 
       } else {
-         li.style.display = 'none';
+         list[i].style.display = 'none';
       }
 
    }
@@ -61,16 +61,20 @@ showPage(listItems, 1);
    functionality to the pagination buttons.
 ***/
 
+let mainDiv = document.querySelector('.page');
+let linkDiv = document.createElement('div');
+let ul = document.createElement('ul');
+linkDiv.className = 'pagination';
+let pageLink;//= document.createElement('li');
+let aTag;//= document.createElement('a');
+//aTag.href = '#';
 function appendPageLinks(list) {
-   let mainDiv = document.querySelector('.page');
-   let linkDiv = document.createElement('div');
-   let ul = document.createElement('ul');
-   linkDiv.className = 'pagination';
+
    let pageLimiter = list.length / itemsPerPage;
 
    for (let i = 0; i < pageLimiter; i++) {
-      let pageLink = document.createElement('li');
-      let aTag = document.createElement('a');
+      pageLink = document.createElement('li');
+      aTag = document.createElement('a');
       aTag.href = '#';
       aTag.textContent = i + 1;
 
@@ -108,9 +112,9 @@ function createSearchBar() {
    searchDiv.appendChild(searchBar);
    searchDiv.appendChild(searchButton);
 
-   searchBar.addEventListener('keyup', () =>{
+   searchBar.addEventListener('keyup', () => {
       performSearch(event.target.value);
-     //console.log(event.target.value);
+      //console.log(event.target.value);
 
       //1. add functionality to the search bar
       //2. how to dynamically display?
@@ -133,17 +137,27 @@ function performSearch(searchInput) {
       //console.log(name);
       if (searchInput.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.toLowerCase())) {
          liArray.push(names[i].parentElement.parentElement);
-         names[i].parentElement.parentElement.style.display = '';
-         
-       } else {
-          names[i].parentElement.parentElement.style.display = 'none';
-       }
+         //names[i].parentElement.parentElement.style.display = '';
+
+      } else {
+         //names[i].parentElement.parentElement.style.display = 'none';
+      }
 
    }
+   removekid(pageLink);
+   console.log(liArray);
+
+   showPage(liArray, 1);
+
    appendPageLinks(liArray);
-   
 }
 
+function removekid(papa) {
+   {
+      papa.removeChild();
+   }
+
+}
 
 
 
